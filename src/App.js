@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+
 import './App.css';
+import List from './List'
+import {useState} from 'react'
+import Item from './Item';
+import TodoForm from './TodoForm';
+
 
 function App() {
+ 
+  const [items, setItems] = useState([])
+  function onAddItem(text){
+    let it = new Item(text) 
+    setItems([...items, it])
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <div>
+     <h1>Todo List</h1>
+    
+     <TodoForm onAddItem={onAddItem}></TodoForm>
+  
+     <List items ={items}></List>
+    
+  </div>
+    
   );
 }
+
 
 export default App;
