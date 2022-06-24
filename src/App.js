@@ -1,14 +1,30 @@
 
 import './App.css';
 import List from './components/List'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Item from './components/Item';
 import TodoForm from './components/TodoForm';
 
+const SAVED_ITEMS = "savedItems"
 
 function App() {
- 
+  
   const [items, setItems] = useState([])
+  
+  useEffect(()=>{
+  let savedItems = JSON.parse(localStorage.getItem(SAVED_ITEMS));
+  if(savedItems){
+    setItems(savedItems)
+  }
+
+  },[])
+
+  useEffect(()=>{
+   localStorage.setItem(SAVED_ITEMS,JSON.stringify(items))
+
+  },[items])
+  
+  
   function onAddItem(text){
     let it = new Item(text) 
     setItems([...items, it])
